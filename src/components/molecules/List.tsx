@@ -3,8 +3,14 @@ import React from 'react';
 import TitleCard from '../atoms/TitleCard';
 import ItemCard from '../atoms/ItemCard';
 import AddCard from '../atoms/AddCard';
+import { Card } from '@/types/card';
 
-const CardWrapper = styled('div')(
+type ListProps = {
+  title: string;
+  cards : Card[];
+}
+
+const ListCardWrapper = styled('div')(
     `
     -webkit-box-direction: normal;
     -webkit-box-orient: vertical;
@@ -20,7 +26,7 @@ const CardWrapper = styled('div')(
     `,
 );
 
-const CardContainer = styled('div')(
+const ListCardContainer = styled('div')(
     `
     -webkit-box-direction: normal;
     -webkit-box-orient: vertical;
@@ -38,20 +44,22 @@ const CardItems = styled('div')(
     `,
 );
 
-const Card = () => {
+const List = ({title, cards}: ListProps) => {
   return (
-    <CardWrapper>
-      <CardContainer>
-        <TitleCard>My first list</TitleCard>
+    <ListCardWrapper>
+      <ListCardContainer>
+        <TitleCard>{title}</TitleCard>
         <CardItems>
-            <ItemCard>My first card</ItemCard>
-            <ItemCard>My second card</ItemCard>
-            <ItemCard>Followed card</ItemCard>
+          {
+            cards.map((card, key) => (
+              <ItemCard key={key}>{card.title}</ItemCard>
+            ))
+          }
         </CardItems>
         <AddCard>Ajouter une autre carte</AddCard>
-      </CardContainer>
-    </CardWrapper>
+      </ListCardContainer>
+    </ListCardWrapper>
   )
 }
 
-export default Card
+export default List
