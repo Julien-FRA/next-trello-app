@@ -3,11 +3,12 @@ import React from 'react';
 import TitleCard from '../atoms/TitleCard';
 import ItemCard from '../atoms/ItemCard';
 import AddCard from '../atoms/AddCard';
-import { Card } from '@/types/card';
+import { CardType } from '@/types/card';
 
 type ListProps = {
   title: string;
-  cards : Card[];
+  cards : CardType[];
+  handleTitleCard: (text: string) => void;
 }
 
 const ListCardWrapper = styled('div')(
@@ -44,7 +45,7 @@ const CardItems = styled('div')(
     `,
 );
 
-const List = ({title, cards}: ListProps) => {
+const List = ({title, cards, handleTitleCard}: ListProps) => {
   return (
     <ListCardWrapper>
       <ListCardContainer>
@@ -56,7 +57,7 @@ const List = ({title, cards}: ListProps) => {
             ))
           }
         </CardItems>
-        <AddCard>Ajouter une autre carte</AddCard>
+        <AddCard onSubmit={handleTitleCard}>Ajouter une autre carte</AddCard>
       </ListCardContainer>
     </ListCardWrapper>
   )
