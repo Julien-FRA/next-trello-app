@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 
 type AddCardProps = {
     children: React.ReactNode;
+    onSubmit: (text: string) => void;
 }
 
 const AddCardWrapper = styled('form')(
@@ -172,28 +173,38 @@ const AddCardContainerButton = styled('div')(
 );
 
 
-const AddCard = ({children}: AddCardProps) => {
-  const [ showForm, setshowForm] = useState(false);
+const AddCard = ({children, onSubmit}: AddCardProps) => {
+  const [ showForm, setshowForm] = useState<boolean>(false);
+  const [ data, setData ] = useState<string>('');
 
-  const addCardData = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const toggleForm = (e: React.MouseEvent<HTMLButtonElement>) => {
     setshowForm(!showForm);
     e.preventDefault();
   }
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    onSubmit(data);
+  };
+
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setData(event.target.value);
+  };
   
   return (
-    <AddCardWrapper>
+    <AddCardWrapper onSubmit={handleSubmit}>
       {
         !showForm ? (
-          <AddCardButton type='submit' onClick={addCardData}>
+          <AddCardButton onClick={toggleForm}>
           <span />
           {children}
         </AddCardButton>
         ) : (
           <div>
-            <AddCardTextArea />
+            <AddCardTextArea value={data} onChange={handleChange} />
             <AddCardContainerButton>
-              <AddCardSubmit>Ajouter une carte</AddCardSubmit>
-              <AddCardCancel onClick={addCardData}>
+              <AddCardSubmit type='submit'>Ajouter une carte</AddCardSubmit>
+              <AddCardCancel onClick={toggleForm}>
                 <span />
               </AddCardCancel>
             </AddCardContainerButton>

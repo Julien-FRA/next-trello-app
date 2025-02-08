@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import List from '../molecules/List';
 import { styled } from '@mui/system';
 import AddList from '../atoms/AddList';
-import { Card } from '@/types/card';
+import { ListsType } from '@/types/lists';
+
+type ListsProps = {
+  lists: ListsType[];
+}
 
 const ListWrapper = styled('div')(
     `
@@ -12,21 +16,26 @@ const ListWrapper = styled('div')(
     `,
 );
 
-const Lists = () => {
-  const listOne: Card[] = [
-    { title: 'My first card', followed: false },
-    { title: 'My second card', followed: false },
-    { title: 'Followed card', followed: true },
-  ];
+const Lists = ({lists}: ListsProps) => {
+  const [titleCard, setTitleCard] = useState<string>('');
 
-  const listTwo: Card[] = [
-    { title: 'Followed card with desc', desc: 'This is the description for card 1', followed: true },
-  ];
+  const handleSubmit = (text: string) => {
+    setTitleCard(text);
+  };
+
+  lists.map((list) => {
+    list.cards.push({title: titleCard, followed: false});
+  })
+
+  console.log(titleCard);
   
   return (
     <ListWrapper>
-      <List title={'My first list'} cards={listOne} />
-      <List title={'My second list'} cards={listTwo} />
+      {
+        lists.map((list, key) => (
+          <List key={key} title={list.title} cards={list.cards} handleTitleCard={handleSubmit} />
+        ))
+      }
       <AddList>Ajouter une autre liste</AddList>
     </ListWrapper>
   )
