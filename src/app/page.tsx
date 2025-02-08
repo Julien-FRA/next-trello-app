@@ -1,7 +1,7 @@
 "use client"
 
 import InitData from "@/components/molecules/InitData";
-import List from "@/components/organisms/List";
+import List from "@/components/organisms/Lists";
 
 export default function Home() {
   return (
