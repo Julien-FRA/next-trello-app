@@ -11,5 +11,7 @@ const firebaseConfig = {
   measurementId: "G-BDZFLD56SS",
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const app = initializeApp(firebaseConfig);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const analytics = getAnalytics(app);
