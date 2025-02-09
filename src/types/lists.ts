@@ -1,6 +1,7 @@
-import { CardType } from "./card";
+import { TCard } from "./card";
 
-export type ListsType = {
-    title: string;
-    cards: CardType[];
-}
+export type TLists = {
+  idList: number;
+  titleList: string;
+  cards: TCard[];
+};
