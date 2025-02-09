@@ -27,7 +27,7 @@ export const APIMockData: TLists[] = [
   },
   {
     idList: 1,
-    titleList: "My sedonc list",
+    titleList: "My second list",
     cards: [
       {
         idCard: 0,
