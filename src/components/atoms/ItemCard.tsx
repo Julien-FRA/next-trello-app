@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { TextField } from "@mui/material";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import ReorderTwoToneIcon from "@mui/icons-material/ReorderTwoTone";
 
 type ItemCardProps = {
   idList: number;
@@ -52,6 +53,7 @@ const ItemCardButton = styled("button")(
     width: 100%;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     `
 );
 
@@ -120,10 +122,11 @@ const ItemCard = ({
   return (
     <ItemCardWrapper>
       <ItemCardButton onClick={handleOpen}>
+        <ItemCardText>{titleCard}</ItemCardText>
         <SvgContainer>
           {followedCard ? <RemoveRedEyeIcon sx={{ mr: 0.5, ml: 1 }} /> : null}
+          {descCard ? <ReorderTwoToneIcon /> : null}
         </SvgContainer>
-        <ItemCardText>{titleCard}</ItemCardText>
       </ItemCardButton>
       <Modal
         open={open}
@@ -133,6 +136,7 @@ const ItemCard = ({
       >
         <Box sx={style}>
           {followedCard ? <RemoveRedEyeIcon /> : null}
+          {descCard ? <ReorderTwoToneIcon /> : null}
           <Typography id="modal-modal-title" variant="h6" component="h2">
             {titleCard}
           </Typography>

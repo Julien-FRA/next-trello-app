@@ -8,19 +8,16 @@ export const APIMockData: TLists[] = [
       {
         idCard: 0,
         titleCard: "My first card",
-        descCard: "Task1 Detail Description",
         followedCard: false,
       },
       {
         idCard: 1,
         titleCard: "My second card",
-        descCard: "Task2 Detail Description",
         followedCard: false,
       },
       {
         idCard: 2,
         titleCard: "Followed card",
-        descCard: "Task3 Detail Description",
         followedCard: true,
       },
     ],
