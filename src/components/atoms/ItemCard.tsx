@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { TextField } from "@mui/material";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 
 type ItemCardProps = {
   idList: number;
@@ -118,6 +119,7 @@ const ItemCard = ({
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          {followedCard ? <RemoveRedEyeIcon /> : null}
           <Typography id="modal-modal-title" variant="h6" component="h2">
             {titleCard}
           </Typography>
