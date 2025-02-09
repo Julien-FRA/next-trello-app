@@ -1,44 +1,127 @@
-import React, { useState } from 'react'
-import List from '../molecules/List';
-import { styled } from '@mui/system';
-import AddList from '../atoms/AddList';
-import { ListsType } from '@/types/lists';
+import React, { useEffect, useState } from "react";
+import List from "../molecules/List";
+import { styled } from "@mui/system";
+import AddList from "../atoms/AddList";
+import { TLists } from "@/types/lists";
+import {
+  fetchLocalStorage,
+  removeLocalStorage,
+  updateLocalStorage,
+} from "@/helpers/apiLayers";
+import InitData from "../molecules/InitData";
 
 type ListsProps = {
-  lists: ListsType[];
-}
+  board: TLists[];
+};
 
-const ListWrapper = styled('div')(
-    `
+const ListWrapper = styled("div")(
+  `
     -webkit-box-align: start;
     align-items: flex-start;
     display: flex;
-    `,
+    `
 );
 
-const Lists = ({lists}: ListsProps) => {
-  const [titleCard, setTitleCard] = useState<string>('');
+const Lists = ({ board }: ListsProps) => {
+  const [lists, setLists] = useState<TLists[]>(board || []);
 
-  const handleSubmit = (text: string) => {
-    setTitleCard(text);
+  useEffect(() => {
+    updateLocalStorage(lists);
+  }, [lists]);
+
+  const resetListHandler = () => {
+    setLists(board);
+    removeLocalStorage();
+    fetchLocalStorage();
   };
 
-  lists.map((list) => {
-    list.cards.push({title: titleCard, followed: false});
-  })
-
-  console.log(titleCard);
-  
-  return (
-    <ListWrapper>
+  const addListHandler = (titleList: string) => {
+    setLists((prevLists) => [
+      ...prevLists,
       {
-        lists.map((list, key) => (
-          <List key={key} title={list.title} cards={list.cards} handleTitleCard={handleSubmit} />
-        ))
-      }
-      <AddList>Ajouter une autre liste</AddList>
-    </ListWrapper>
-  )
-}
+        idList: prevLists.length + 1,
+        titleList,
+        cards: [],
+      },
+    ]);
+  };
 
-export default Lists
+  const removeListHandler = (idList: number) => {
+    setLists((prevLists) => prevLists.filter((list) => list.idList !== idList));
+  };
+
+  const addCardHandler = (idList: number, titleCard: string) => {
+    setLists((prevLists) => {
+      return prevLists.map((list) => {
+        if (list.idList === idList) {
+          const newCard = {
+            idCard: list.cards.length + 1,
+            titleCard,
+            followedCard: false,
+          };
+          return { ...list, cards: [...list.cards, newCard] };
+        }
+
+        return list;
+      });
+    });
+  };
+
+  const updateCardHandler = (
+    idList: number,
+    idCard: number,
+    newTitle: string,
+    newDesc: string
+  ) => {
+    setLists((prevLists) => {
+      return prevLists.map((list) => {
+        if (list.idList === idList) {
+          const updatedCards = list.cards.map((card) =>
+            card.idCard === idCard
+              ? { ...card, titleCard: newTitle, descCard: newDesc }
+              : card
+          );
+          return { ...list, cards: updatedCards };
+        }
+        return list;
+      });
+    });
+  };
+
+  const deleteCardHandler = (idList: number, idCard: number) => {
+    setLists((prevLists) => {
+      return prevLists.map((list) => {
+        if (list.idList === idList) {
+          const updatedCards = list.cards.filter(
+            (card) => card.idCard !== idCard
+          ); // Supprimer la carte
+          return { ...list, cards: updatedCards };
+        }
+        return list;
+      });
+    });
+  };
+
+  return (
+    <>
+      <InitData resetData={resetListHandler} />
+      <ListWrapper>
+        {lists.map((list, key) => (
+          <List
+            key={key}
+            idList={list.idList}
+            title={list.titleList}
+            cards={list.cards}
+            onDeleteList={() => removeListHandler(list.idList)}
+            onAddCard={addCardHandler}
+            onUpdateCard={updateCardHandler}
+            onDeleteCard={deleteCardHandler}
+          />
+        ))}
+        <AddList addList={addListHandler}>Ajouter une autre liste</AddList>
+      </ListWrapper>
+    </>
+  );
+};
+
+export default Lists;
