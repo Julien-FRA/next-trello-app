@@ -50,6 +50,8 @@ const ItemCardButton = styled("button")(
     line-height: 1;
     padding: 0px;
     width: 100%;
+    display: flex;
+    align-items: center;
     `
 );
 
@@ -67,6 +69,14 @@ const ItemCardText = styled("h2")(
     padding-left: 8px;
     padding-right: 8px;
     text-align: left;
+    `
+);
+
+const SvgContainer = styled("div")(
+  `
+    svg {
+      color: black;
+    }
     `
 );
 
@@ -110,6 +120,9 @@ const ItemCard = ({
   return (
     <ItemCardWrapper>
       <ItemCardButton onClick={handleOpen}>
+        <SvgContainer>
+          {followedCard ? <RemoveRedEyeIcon sx={{ mr: 0.5, ml: 1 }} /> : null}
+        </SvgContainer>
         <ItemCardText>{titleCard}</ItemCardText>
       </ItemCardButton>
       <Modal
