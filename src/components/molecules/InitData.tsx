@@ -5,6 +5,10 @@ import ButtonInitData from "../atoms/ButtonInitData";
 import { styled } from "@mui/system";
 import TitleOne from "../atoms/TitleOne";
 
+type InitDataProps = {
+  resetData: () => void;
+};
+
 const InitDataWrapper = styled("div")(
   `
     display: flex;
@@ -13,7 +17,7 @@ const InitDataWrapper = styled("div")(
     `
 );
 
-const InitData = ({ resetData }: any) => {
+const InitData = ({ resetData }: InitDataProps) => {
   return (
     <InitDataWrapper>
       <TitleOne>Tableau principal</TitleOne>

@@ -210,7 +210,7 @@ const AddList = ({ children, addList }: AddListProps) => {
   const [showForm, setshowForm] = useState(false);
   const [inputText, setInputText] = useState("");
 
-  const submission = (e: any) => {
+  const submission = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (inputText) {
       setInputText("");
