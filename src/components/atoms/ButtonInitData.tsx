@@ -1,12 +1,13 @@
-import { styled } from '@mui/system';
-import React from 'react';
+import { styled } from "@mui/system";
+import React from "react";
 
 type ButtonInitDataProps = {
-    children: React.ReactNode;
-}
+  children: React.ReactNode;
+  resetData: () => void;
+};
 
-const ButtonWrapper = styled('button')(
-    `
+const ButtonWrapper = styled("button")(
+  `
     background-color: rgb(90, 172, 68);
     border-width: 0px;
     border-radius: 3px;
@@ -23,13 +24,11 @@ const ButtonWrapper = styled('button')(
     &:hover {
     background-color: rgb(97, 189, 79);
     }
-    `,
+    `
 );
 
-const ButtonInitData = ({children}: ButtonInitDataProps) => {
-  return (
-    <ButtonWrapper>{children}</ButtonWrapper>
-  )
-}
+const ButtonInitData = ({ children, resetData }: ButtonInitDataProps) => {
+  return <ButtonWrapper onClick={resetData}>{children}</ButtonWrapper>;
+};
 
-export default ButtonInitData
+export default ButtonInitData;
