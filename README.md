@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Exercice : Application Trello avec Next.js
 
-## Getting Started
+Hébergement sur Firebase
 
-First, run the development server:
+URL du projet : https://trello-app-8bb80.web.app/
+
+## Pour commencer
+
+Installation du projet :
+```bash
+npm install
+```
+
+Pour lancer le projet :
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Ouvrir [http://localhost:3000](http://localhost:3000) pour visionner le projet.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Débrief de l'exercice
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Un projet intéressant avec des fonctionnalités basiques, permettant néanmoins d'explorer plusieurs outils et concepts liés à Next.js et React.
 
-## Learn More
+## Difficultés
+Gestion et stockage des données : Plusieurs options possibles (cookies, localStorage, Redux, etc.). J'ai choisi d'utiliser localStorage pour ce projet.
 
-To learn more about Next.js, take a look at the following resources:
+Déploiement sur Firebase : Premier déploiement sur Firebase avec Next.js. Pas de grandes difficultés, mais un apprentissage, car j'ai l'habitude de déployer sur Vercel.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Réussites
+Intégration du style des composants avec Material UI.
+Découpage du projet en suivant l'approche Atomic Design (du mieux possible).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Évolutions
+Mise en place du suivi des cartes.
+Ajout du drag and drop pour les cartes et les listes.
+Optimisation des formulaires.
