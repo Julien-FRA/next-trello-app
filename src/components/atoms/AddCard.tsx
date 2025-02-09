@@ -1,207 +1,220 @@
-import { styled } from '@mui/system';
-import React, { useState } from 'react';
+import { styled } from "@mui/system";
+import React, { useState } from "react";
 
 type AddCardProps = {
-    children: React.ReactNode;
-}
+  children: React.ReactNode;
+  idList: number;
+  onAddCard: (idList: number, cardTitle: string) => void;
+};
 
-const AddCardWrapper = styled('form')(
+const AddCardWrapper = styled("form")(
+  `
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
     `
-    -webkit-box-direction: normal !important;
-    -webkit-box-orient: vertical !important;
-    display: flex !important;
-    flex-direction: column !important;
-    padding: 8px !important;
-    `,
 );
 
-const AddCardButton = styled('button')(
-    `
-    -webkit-box-align: center !important;
-    border-width: 0px !important;
-    border-radius: 3px !important;
-    cursor: pointer !important;
-    font-size: 14px !important;
-    margin: 0px !important;
-    padding-left: 12px !important;
-    padding-right: 12px !important;
-    outline: none !important;
-    align-items: center !important;
-    color: rgb(97, 97, 97) !important;
-    background-color: transparent !important;
-    display: flex !important;
-    height: 30px !important;
-    line-height: 30px !important;
-    text-align: left !important;
+const AddCardButton = styled("button")(
+  `
+    -webkit-box-align: center;
+    border-width: 0px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 0px;
+    padding-left: 12px;
+    padding-right: 12px;
+    outline: none;
+    align-items: center;
+    color: rgb(97, 97, 97);
+    background-color: transparent;
+    display: flex;
+    height: 30px;
+    line-height: 30px;
+    text-align: left;
 
     &:hover {
-        background-color: rgba(9, 30, 66, 0.08) !important;
+        background-color: rgba(9, 30, 66, 0.08);
     }
 
     span {
-        margin-right: 4px !important;
-        position: relative !important;
-        height: 20px !important;
-        width: 20px !important;
+        margin-right: 4px;
+        position: relative;
+        height: 20px;
+        width: 20px;
 
         &::before {
-            content: "" !important;
-            background-color: rgb(97, 97, 97) !important;
-            height: 12px !important;
-            position: absolute !important;
-            top: 50% !important;
-            left: 50% !important;
-            transform: translate(-50%, -50%) !important;
-            transition: background 85ms ease-in 0s !important;
-            width: 2px !important;
+            content: "";
+            background-color: rgb(97, 97, 97);
+            height: 12px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: background 85ms ease-in 0s;
+            width: 2px;
         }
 
         &::after {
-            content: "" !important;
-            background-color: rgb(97, 97, 97) !important;
-            height: 2px !important;
-            position: absolute !important;
-            top: 50% !important;
-            left: 50% !important;
-            transform: translate(-50%, -50%) !important;
-            transition: background 85ms ease-in 0s !important;
-            width: 12px !important;
+            content: "";
+            background-color: rgb(97, 97, 97);
+            height: 2px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: background 85ms ease-in 0s;
+            width: 12px;
         }
     }
-    `,
+    `
 );
 
-const AddCardTextArea = styled('textarea')(
+const AddCardTextArea = styled("textarea")(
   `
-    appearance: none !important;
-    border-radius: 3px !important;
-    border-width: 0px !important;
-    box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 0px !important;
-    font-size: 14px !important;
-    min-height: 72px !important;
-    padding-top: 8px !important;
-    padding-left: 8px !important;
-    padding-right: 8px !important;
-    width: 100% !important;
-  `,
+    appearance: none;
+    border-radius: 3px;
+    border-width: 0px;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 0px;
+    font-size: 14px;
+    min-height: 72px;
+    padding-top: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+    width: 100%;
+  `
 );
 
-const AddCardSubmit = styled('button')(
+const AddCardSubmit = styled("button")(
   `
-    background-color: rgb(90, 172, 68) !important;
-    border-width: 0px !important;
-    border-radius: 3px !important;
-    cursor: pointer !important;
-    font-size: 14px !important;
-    color: rgb(255, 255, 255) !important;
-    margin: 0px !important;
-    padding-left: 12px !important;
-    padding-right: 12px !important;
-    outline: none !important;
-    line-height: 32px !important;
-    height: 32px !important;
-  `,
+    background-color: rgb(90, 172, 68);
+    border-width: 0px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+    color: rgb(255, 255, 255);
+    margin: 0px;
+    padding-left: 12px;
+    padding-right: 12px;
+    outline: none;
+    line-height: 32px;
+    height: 32px;
+  `
 );
 
-const AddCardCancel = styled('button')(
+const AddCardCancel = styled("button")(
   `
-  border-width: 0px !important;
-    border-radius: 3px !important;
-    font-size: 14px !important;
-    color: rgb(255, 255, 255) !important;
-    margin: 0px !important;
-    padding-left: 12px !important;
-    padding-right: 12px !important;
-    outline: none !important;
-    line-height: 32px !important;
-    background-color: transparent !important;
-    cursor: pointer !important;
-    height: 32px !important;
-    position: relative !important;
-    width: 32px !important;
+  border-width: 0px;
+    border-radius: 3px;
+    font-size: 14px;
+    color: rgb(255, 255, 255);
+    margin: 0px;
+    padding-left: 12px;
+    padding-right: 12px;
+    outline: none;
+    line-height: 32px;
+    background-color: transparent;
+    cursor: pointer;
+    height: 32px;
+    position: relative;
+    width: 32px;
 
     span {
-      margin-left: 4px !important;
-      position: absolute !important;
-      transform: translate(-50%, -50%) rotate(45deg) !important;
-      top: 50% !important;
-      left: 50% !important;
-      height: 20px !important;
-      width: 20px !important;
+      margin-left: 4px;
+      position: absolute;
+      transform: translate(-50%, -50%) rotate(45deg);
+      top: 50%;
+      left: 50%;
+      height: 20px;
+      width: 20px;
 
       &::before {
-        content: "" !important;
-        background-color: rgb(145, 145, 145) !important;
-        height: 20px !important;
-        position: absolute !important;
-        top: 50% !important;
-        left: 50% !important;
-        transform: translate(-50%, -50%) !important;
-        transition: background 85ms ease-in 0s !important;
-        width: 2px !important;
+        content: "";
+        background-color: rgb(145, 145, 145);
+        height: 20px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition: background 85ms ease-in 0s;
+        width: 2px;
 
         &:hover {
-          background-color: rgb(49, 49, 49) !important;
+          background-color: rgb(49, 49, 49);
         }
       }
 
       &::after {
-        content: "" !important;
-        background-color: rgb(145, 145, 145) !important;
-        height: 2px !important;
-        position: absolute !important;
-        top: 50% !important;
-        left: 50% !important;
-        transform: translate(-50%, -50%) !important;
-        transition: background 85ms ease-in 0s !important;
-        width: 20px !important;
+        content: "";
+        background-color: rgb(145, 145, 145);
+        height: 2px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition: background 85ms ease-in 0s;
+        width: 20px;
 
         &:hover {
-          background-color: rgb(49, 49, 49) !important;
+          background-color: rgb(49, 49, 49);
         }
       }
     }
-  `,
-);
-
-const AddCardContainerButton = styled('div')(
   `
-    display: flex !important;
-    margin-top: 4px !important;
-  `,
 );
 
+const AddCardContainerButton = styled("div")(
+  `
+    display: flex;
+    margin-top: 4px;
+  `
+);
 
-const AddCard = ({children}: AddCardProps) => {
-  const [ showForm, setshowForm] = useState(false);
+const AddCard = ({ children, idList, onAddCard }: AddCardProps) => {
+  const [showForm, setshowForm] = useState<boolean>(false);
+  const [newCardTitle, setNewCardTitle] = useState("");
 
-  const addCardData = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleAddCard = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (newCardTitle.trim()) {
+      onAddCard(idList, newCardTitle);
+      setNewCardTitle("");
+      e.preventDefault();
+    }
+  };
+
+  const toggleForm = (e: React.MouseEvent<HTMLButtonElement>) => {
     setshowForm(!showForm);
     e.preventDefault();
-  }
-  
+  };
+
   return (
     <AddCardWrapper>
-      {
-        !showForm ? (
-          <AddCardButton type='submit' onClick={addCardData}>
+      {!showForm ? (
+        <AddCardButton onClick={toggleForm}>
           <span />
           {children}
         </AddCardButton>
-        ) : (
-          <div>
-            <AddCardTextArea />
-            <AddCardContainerButton>
-              <AddCardSubmit>Ajouter une carte</AddCardSubmit>
-              <AddCardCancel onClick={addCardData}>
-                <span />
-              </AddCardCancel>
-            </AddCardContainerButton>
-          </div>
-        )
-      }
+      ) : (
+        <div>
+          <AddCardTextArea
+            value={newCardTitle}
+            onChange={(e) => setNewCardTitle(e.target.value)}
+          />
+          <AddCardContainerButton>
+            <AddCardSubmit type="submit" onClick={handleAddCard}>
+              Ajouter une carte
+            </AddCardSubmit>
+            <AddCardCancel onClick={toggleForm}>
+              <span />
+            </AddCardCancel>
+          </AddCardContainerButton>
+        </div>
+      )}
     </AddCardWrapper>
-  )
-}
+  );
+};
 
-export default AddCard
+export default AddCard;

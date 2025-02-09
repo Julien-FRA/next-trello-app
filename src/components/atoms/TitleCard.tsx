@@ -1,30 +1,31 @@
-import { styled } from '@mui/system';
-import React from 'react';
+import { styled } from "@mui/system";
+import React from "react";
 
 type TitleCardProps = {
-    children: React.ReactNode;
-}
+  children: React.ReactNode;
+  onDelete: () => void;
+};
 
-const TitleCardWrapper = styled('div')(
-    `
+const TitleCardWrapper = styled("div")(
+  `
     padding: 10px 8px;
     position: relative;
-    `,
+    `
 );
 
-const TitleCardContent = styled('div')(
-    `
+const TitleCardContent = styled("div")(
+  `
     color: rgb(49, 49, 49);
     font-size: 14px;
     font-weight: 600;
     padding-left: 8px;
     padding-right: 8px;
     line-height: 26px;
-    `,
+    `
 );
 
-const TitleCardButton = styled('button')(
-    `
+const TitleCardButton = styled("button")(
+  `
     appearance: none;
     background-color: transparent;
     border: 0px;
@@ -72,20 +73,20 @@ const TitleCardButton = styled('button')(
             width: 3px;
         }
     }
-    `,
+    `
 );
 
-const TitleCard = ({children}: TitleCardProps) => {
+const TitleCard = ({ children, onDelete }: TitleCardProps) => {
   return (
     <TitleCardWrapper>
-        <TitleCardContent>
-            {children}
-            <TitleCardButton>
-                <span />
-            </TitleCardButton>
-        </TitleCardContent>
+      <TitleCardContent>
+        {children}
+        <TitleCardButton onClick={() => onDelete()}>
+          <span />
+        </TitleCardButton>
+      </TitleCardContent>
     </TitleCardWrapper>
-  )
-}
+  );
+};
 
-export default TitleCard
+export default TitleCard;

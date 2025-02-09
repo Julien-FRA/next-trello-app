@@ -1,13 +1,14 @@
-"use client"
+"use client";
 
-import InitData from "@/components/molecules/InitData";
-import List from "@/components/organisms/List";
+import List from "@/components/organisms/Lists";
+import { fetchLocalStorage } from "@/helpers/apiLayers";
 
 export default function Home() {
+  const boardListData = fetchLocalStorage();
+
   return (
-      <main className="main">
-        <InitData />
-        <List />
-      </main>
+    <main className="main">
+      <List board={boardListData} />
+    </main>
   );
 }
