@@ -1,5 +1,6 @@
-export type CardType = {
-    title: string;
-    desc?: string;
-    followed: boolean;
-  };
+export type TCard = {
+  idCard: number;
+  titleCard: string;
+  descCard?: string;
+  followedCard: boolean;
+};
